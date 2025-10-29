@@ -13,9 +13,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 9816
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -25,7 +26,11 @@ spring:
             create-source: metadata
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
-    defer-datasource-initialization: true
+
+  security:
+    user:
+      name: user
+      password: $2a$10$EjJya0WoO8aExSxJ9bvfvOW6lx.xPYw4K76aN7RUUcsU5uCi1E5Eq
 
 eureka:
   instance:
