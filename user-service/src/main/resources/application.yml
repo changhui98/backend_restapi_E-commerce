@@ -1,0 +1,40 @@
+server:
+  port: 60000
+
+spring:
+  cloud:
+    refresh:
+      enabled: false
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/users
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 9816
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+      jakarta:
+        persistence:
+          schema-generation:
+            create-source: metadata
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    defer-datasource-initialization: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+greeting:
+  message: Welcome to the Simple E-Commerce - 2nd.
