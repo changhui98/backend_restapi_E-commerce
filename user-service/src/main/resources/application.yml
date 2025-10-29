@@ -2,9 +2,6 @@ server:
   port: 0
 
 spring:
-  cloud:
-    refresh:
-      enabled: false
   application:
     name: user-service
 
@@ -39,7 +36,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka
 
 greeting:
   message: Welcome to the Simple E-Commerce - 2nd.
