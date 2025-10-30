@@ -1,5 +1,6 @@
-package com.example.catalogservice.application.service;
+package com.example.catalogservice.application.service.impl;
 
+import com.example.catalogservice.application.service.CatalogService;
 import com.example.catalogservice.domain.entity.CatalogEntity;
 import com.example.catalogservice.infrastructure.repository.CatalogJpaRepository;
 import com.example.catalogservice.presentation.dto.request.CatalogRequest;
