@@ -1,6 +1,7 @@
 package com.example.catalogservice.presentation.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class CatalogResponse {
     private String productName;
     private Integer unitPrice;
     private Integer stock;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
 
 }
