@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface OrderService {
 
     OrderResponse createOrder(String userId, OrderRequest orderRequest);
-    Optional<OrderDto> getOrderByOrderId(String orderId);
+    OrderDto getOrderByOrderId(String orderId);
     List<OrderResponse> getOrdersByUserId(String userId);
 
 }

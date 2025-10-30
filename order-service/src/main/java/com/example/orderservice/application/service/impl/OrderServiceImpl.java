@@ -45,8 +45,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<OrderDto> getOrderByOrderId(String orderId) {
-        return Optional.empty();
+    public OrderDto getOrderByOrderId(String orderId) {
+
+        OrderEntity order = orderJpaRepository.findByOrderId(orderId);
+
+        return OrderDto.builder()
+            .userId(order.getUserId())
+            .productId(order.getProductId())
+            .qty(order.getQty())
+            .unitPrice(order.getUnitPrice())
+            .orderId(order.getOrderId())
+            .totalPrice(order.getQty() * order.getUnitPrice())
+            .build();
     }
 
     @Override

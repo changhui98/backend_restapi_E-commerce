@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  orders-db:
+    image: mysql:8
+    container_name: orders-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 9816
+      MYSQL_DATABASE: orders_db
+    ports:
+      - "3309:3306"
+    volumes:
+      - orders-data:/var/lib/mysql
+
+volumes:
+  orders-data:
