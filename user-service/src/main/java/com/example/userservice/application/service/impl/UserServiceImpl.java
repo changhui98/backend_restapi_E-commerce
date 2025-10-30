@@ -3,7 +3,10 @@ package com.example.userservice.application.service.impl;
 import com.example.userservice.application.service.UserService;
 import com.example.userservice.domain.entity.UserEntity;
 import com.example.userservice.infrastructure.repository.UserJpaRepository;
+import com.example.userservice.presentation.dto.OrderResponse;
 import com.example.userservice.presentation.dto.UserDto;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -32,6 +35,25 @@ public class UserServiceImpl implements UserService {
         return mapper.map(userEntity, UserDto.class);
     }
 
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserEntity userEntity = userJpaRepository.findByUserId(userId).orElseThrow(
+            () -> new IllegalArgumentException("User not found")
+        );
+
+        UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+
+        List<OrderResponse> orderList = new ArrayList<>();
+        userDto.setOrders(orderList);
+
+        return userDto;
+    }
+
+    @Override
+    public List<UserEntity> getUserByAll() {
+
+        return userJpaRepository.findAll();
+    }
 
 
 }
