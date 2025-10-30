@@ -1,0 +1,36 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: catalog-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/catalog
+    username: root
+    password: 9816
+
+  sqL:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    database: mysql
+    defer-datasource-initialization: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
