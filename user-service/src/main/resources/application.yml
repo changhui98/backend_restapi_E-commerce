@@ -42,5 +42,5 @@ greeting:
   message: Welcome to the Simple E-Commerce - 2nd.
 
 token:
-  secret: my-very-long-secret-key-1234567890123456
+  secret: d8fe9034ab229bcf56e37e29e41cc4cfde09df03bdf402cecf3ae023bdf40ed8d8fe9034ab229bcf56e37e29e41cc4cf
   expiration_time: 86400000

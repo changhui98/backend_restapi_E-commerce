@@ -5,6 +5,8 @@ import com.example.userservice.presentation.dto.UserDto;
 import com.example.userservice.presentation.dto.request.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Jwts.SIG;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -87,7 +89,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             .subject(userDetails.getUserId())
             .expiration(Date.from(now.plusMillis(Long.parseLong(env.getProperty("token.expiration_time")))))
             .issuedAt(Date.from(now))
-            .signWith(secretKey)
+            .signWith(secretKey, SIG.HS512)
             .compact();
 
 
