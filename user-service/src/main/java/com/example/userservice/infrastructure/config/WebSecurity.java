@@ -48,10 +48,12 @@ public class WebSecurity {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/actuator/**").permitAll()
+                .requestMatchers("/health-check/**").permitAll()
                 .requestMatchers("/**").access(
                     new WebExpressionAuthorizationManager(
                         "hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
-                            "hasIpAddress('192.168.0.104') or hasIpAddress('::1')"))
+                            "hasIpAddress('192.168.45.248') or hasIpAddress('::1')"))
                 .anyRequest().authenticated())
             .authenticationManager(authenticationManager)
             .addFilter(getAuthenticationFilter(authenticationManager))

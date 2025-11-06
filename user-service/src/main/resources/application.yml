@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: user-service
+#  config:
+#    import: "optional:configserver:http://localhost:8888"
 
   datasource:
     url: jdbc:mysql://localhost:3306/users
@@ -42,5 +44,15 @@ greeting:
   message: Welcome to the Simple E-Commerce - 2nd.
 
 token:
+  expiration-time: 86400001
   secret: d8fe9034ab229bcf56e37e29e41cc4cfde09df03bdf402cecf3ae023bdf40ed8d8fe9034ab229bcf56e37e29e41cc4cf
-  expiration_time: 86400000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          - beans
+          - info

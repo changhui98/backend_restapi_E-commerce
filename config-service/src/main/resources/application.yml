@@ -1,2 +1,12 @@
 server:
   port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git: #default
+          uri: file:///Users/changhui/Documents/app/Work/git-local-repo
+          default-label: main
