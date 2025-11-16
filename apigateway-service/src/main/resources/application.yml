@@ -11,6 +11,8 @@ eureka:
 spring:
   application:
     name: apigateway-service
+#  config:
+#    import: "optional:configserver:http://localhost:8888"
   cloud:
     gateway:
       server:
@@ -59,5 +61,16 @@ spring:
               uri: lb://ORDER-SERVICE
               predicates:
                 - Path=/order-service/**
-token:
-  secret: d8fe9034ab229bcf56e37e29e41cc4cfde09df03bdf402cecf3ae023bdf40ed8d8fe9034ab229bcf56e37e29e41cc4cf
+#token:
+#  secret: d8fe9034ab229bcf56e37e29e41cc4cfde09df03bdf402cecf3ae023bdf40ed8d8fe9034ab229bcf56e37e29e41cc4cf
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          - beans
+          - info
+          - httpexchanges

@@ -8,5 +8,6 @@ spring:
     config:
       server:
         git: #default
-          uri: file:///Users/changhui/Documents/app/Work/git-local-repo
+#          uri: file:///Users/changhui/Documents/app/Work/git-local-repo
+          uri: https://github.com/changhui98/backend_restapi_E-commerce_config
           default-label: main
