@@ -4,10 +4,23 @@ server:
 spring:
   application:
     name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     config:
       server:
+        native:
+          search-location: file:///Users/changhui/Documents/app/Work/git-local-repo
         git: #default
 #          uri: file:///Users/changhui/Documents/app/Work/git-local-repo
           uri: https://github.com/changhui98/backend_restapi_E-commerce_config
           default-label: main
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: heath, busrefresh
