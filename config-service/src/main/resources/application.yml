@@ -9,6 +9,8 @@ spring:
     port: 5672
     username: guest
     password: guest
+  profiles:
+    active: git
   cloud:
     config:
       server:
@@ -23,4 +25,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: heath, busrefresh
+        include:
+          - refresh
+          - health
+          - beans
+          - info
+          - busrefresh

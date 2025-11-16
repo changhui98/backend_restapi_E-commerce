@@ -1,9 +1,12 @@
 package com.example.apigatewayservice.filter;
 
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
@@ -42,8 +45,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
             String jwt = authorizationHeader.replace("Bearer ", "");
 
-            if (!isJwtVaild(jwt)) {
-                return onError(exchange, "JWT token is not vaild", HttpStatus.UNAUTHORIZED);
+            if (!isJwtValid(jwt)) {
+                return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
 
             return chain.filter(exchange);
@@ -66,21 +69,19 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         return response.writeWith(Flux.just(buffer));
     }
 
-    private boolean isJwtVaild(String jwt) {
-
-        SecretKey signingKey = Keys.hmacShaKeyFor(env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8));
+    private boolean isJwtValid(String jwt) {
+        byte[] secretKeyBytes = env.getProperty("token.secret").getBytes();
+        SecretKey signingKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS512.getJcaName());
 
         boolean returnValue = true;
         String subject = null;
 
         try {
-            var jwtParser = Jwts.parser()
-                .verifyWith(signingKey)
-                .build()
-                .parseSignedClaims(jwt)
-                .getPayload();
+            JwtParser jwtParser = Jwts.parser()
+                .setSigningKey(signingKey)
+                .build();
 
-            subject = jwtParser.getSubject();
+            subject = jwtParser.parseClaimsJws(jwt).getBody().getSubject();
         } catch (Exception e) {
             returnValue = false;
         }

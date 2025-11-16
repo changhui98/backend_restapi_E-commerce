@@ -4,9 +4,6 @@ server:
 spring:
   application:
     name: user-service
-#  config:
-#    import: "optional:configserver:http://localhost:8888"
-
   datasource:
     url: jdbc:mysql://localhost:3306/users
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,11 +23,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 
-  security:
-    user:
-      name: user
-      password: $2a$10$EjJya0WoO8aExSxJ9bvfvOW6lx.xPYw4K76aN7RUUcsU5uCi1E5Eq
-
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -42,17 +34,3 @@ eureka:
 
 greeting:
   message: Welcome to the Simple E-Commerce (dev profile).
-
-#token:
-#  expiration-time: 86400001
-#  secret: d8fe9034ab229bcf56e37e29e41cc4cfde09df03bdf402cecf3ae023bdf40ed8d8fe9034ab229bcf56e37e29e41cc4cf
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - refresh
-          - health
-          - beans
-          - info
