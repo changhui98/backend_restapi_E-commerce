@@ -2,6 +2,7 @@ package com.example.userservice.application.service.impl;
 
 import com.example.userservice.application.service.UserService;
 import com.example.userservice.domain.entity.UserEntity;
+import com.example.userservice.infrastructure.client.OrderServiceClient;
 import com.example.userservice.infrastructure.repository.UserJpaRepository;
 import com.example.userservice.presentation.dto.OrderResponse;
 import com.example.userservice.presentation.dto.UserDto;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private final UserJpaRepository userJpaRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RestTemplate restTemplate;
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -62,14 +64,18 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        String orderUrl = String.format(env.getProperty("order-service.url"), userId);
-        ResponseEntity<List<OrderResponse>> orderListResponse =
-            restTemplate.exchange(orderUrl, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<OrderResponse>>() {
+        /*
+        Using a RestTemplate
+         */
+//        String orderUrl = String.format(env.getProperty("order-service.url"), userId);
+//        ResponseEntity<List<OrderResponse>> orderListResponse =
+//            restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<List<OrderResponse>>() {
+//
+//                });
 
-                });
 
-        List<OrderResponse> orderList = orderListResponse.getBody();
+        List<OrderResponse> orderList = orderServiceClient.getOrders(userId);
         userDto.setOrders(orderList);
 
         return userDto;
