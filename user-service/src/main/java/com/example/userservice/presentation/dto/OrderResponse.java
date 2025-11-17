@@ -1,5 +1,6 @@
 package com.example.userservice.presentation.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -10,7 +11,7 @@ public class OrderResponse {
     private Integer qty;
     private Integer unitPrice;
     private Integer totalPrice;
-    private Date createAt;
+    private LocalDateTime createdAt;
 
     private String orderId;
 }
