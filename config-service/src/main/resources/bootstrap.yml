@@ -1,0 +1,5 @@
+encrypt:
+  key-store:
+    location: file:///Users/changhui/Documents/app/Work/keystore/apiEncryptionKey.jks
+    password: 1q2w3e4r
+    alias: apiEncryptionKey
