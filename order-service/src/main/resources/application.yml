@@ -5,12 +5,6 @@ spring:
   application:
     name: order-service
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3309/orders_db
-    username: root
-    password: 9816
-
   jpa:
     hibernate:
       ddl-auto: update

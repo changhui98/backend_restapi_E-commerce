@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "order-service", configuration = FeignErrorDecoder.class)
 public interface OrderServiceClient {
 
-    @GetMapping("/order-service/{userId}/orders_ng")
+    @GetMapping("/order-service/{userId}/orders")
     List<OrderResponse> getOrders(@PathVariable String userId);
 
 }
