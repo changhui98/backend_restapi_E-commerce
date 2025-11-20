@@ -1,0 +1,15 @@
+networks:
+  kafka_ecommerce:
+    external: true
+
+services:
+  user-db:
+    image: mysql:8
+    container_name: user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 9816
+      MYSQL_DATABASE: user_db
+    ports:
+      - "3306:3306"
+    networks:
+      - ecommerce

@@ -1,12 +1,8 @@
+networks:
+  ecommerce:
+    external: true
+
 services:
-  user-db:
-    image: mysql:8
-    container_name: user-db
-    environment:
-      MYSQL_ROOT_PASSWORD: 9816
-      MYSQL_DATABASE: user_db
-    ports:
-      - "3306:3306"
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: zookeeper
@@ -14,6 +10,8 @@ services:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - ecommerce
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -27,6 +25,8 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - ecommerce
 
   connect:
     image: confluentinc/cp-kafka-connect:7.5.1
@@ -60,3 +60,5 @@ services:
 
     volumes:
       - .:/usr/share/confluent-hub-components
+    networks:
+      - ecommerce
