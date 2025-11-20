@@ -1,4 +1,12 @@
 services:
+  user-db:
+    image: mysql:8
+    container_name: user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 9816
+      MYSQL_DATABASE: user_db
+    ports:
+      - "3306:3306"
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: zookeeper
@@ -21,36 +29,34 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   connect:
-    image: debezium/connect:2.6
+    image: confluentinc/cp-kafka-connect:7.5.1
     container_name: kafka-connect
     depends_on:
       - kafka
     ports:
       - "8083:8083"
     environment:
-      BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
 
-      REST_PORT: 8083
-      REST_ADVERTISED_HOST_NAME: kafka-connect
-      REST_ADVERTISED_PORT: 8083
+      CONNECT_REST_PORT: 8083
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_REST_ADVERTISED_PORT: 8083
 
-      GROUP_ID: "connect-cluster"
-      CONFIG_STORAGE_TOPIC: connect-configs
-      OFFSET_STORAGE_TOPIC: connect-offsets
-      STATUS_STORAGE_TOPIC: connect-status
+      CONNECT_GROUP_ID: "connect-cluster"
+      CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: connect-status
 
-      CONFIG_STORAGE_REPLICATION_FACTOR: 1
-      OFFSET_STORAGE_REPLICATION_FACTOR: 1
-      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
 
-      KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
-      VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "true"
+      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "true"
 
-      INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-
-      PLUGIN_PATH: "/kafka/connect"
+      CONNECT_PLUGIN_PATH: "/usr/share/confluent-hub-components"
 
     volumes:
-      - ./plugins:/kafka/connect
+      - .:/usr/share/confluent-hub-components
