@@ -39,6 +39,10 @@ public class CatalogEntity {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    public void updateStock(Integer stock) {
+        this.stock = this.stock - stock;
+    }
+
     public static CatalogEntity of(String productId, String productName, Integer stock, Integer unitPrice) {
         CatalogEntity catalogEntity = new CatalogEntity();
         catalogEntity.productId = productId;
