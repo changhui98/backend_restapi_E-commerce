@@ -1,5 +1,5 @@
 networks:
-  kafka_ecommerce:
+  ecommerce:
     external: true
 
 services:
