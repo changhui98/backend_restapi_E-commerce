@@ -30,7 +30,14 @@ public class CatalogServiceImpl implements CatalogService {
     public List<CatalogResponse> getAllCatalogs() {
         List<CatalogEntity> catalogList = catalogJpaRepository.findAll();
 
-        return catalogMapper.toResponseList(catalogList);
+        return catalogList.stream()
+            .map(e -> new CatalogResponse(
+                e.getProductId(),
+                e.getProductName(),
+                e.getUnitPrice(),
+                e.getStock(),
+                e.getCreatedAt()
+            )).toList();
     }
 
     @Override
