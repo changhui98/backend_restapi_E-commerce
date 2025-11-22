@@ -16,19 +16,5 @@ services:
     networks:
       - ecommerce
 
-  orders-db-2:
-    image: mysql:8
-    container_name: orders-db-2
-    environment:
-      MYSQL_ROOT_PASSWORD: 9816
-      MYSQL_DATABASE: orders_db_2
-    ports:
-      - "3310:3306"
-    volumes:
-      - orders2-data:/var/lib/mysql
-    networks:
-      - ecommerce
-
 volumes:
   orders-data:
-  orders2-data:
