@@ -1,8 +1,6 @@
 package com.example.orderservice.infrastructure.kafka;
 
-import com.example.orderservice.presentation.dto.OrderDto;
 import com.example.orderservice.presentation.dto.request.OrderRequest;
-import com.example.orderservice.presentation.dto.response.OrderResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
