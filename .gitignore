@@ -42,6 +42,7 @@ logs/
 tmp/
 target/
 bin/
+HELP.*
 
 # Spring Boot devtools caches
 .spring-boot-devtools.properties
