@@ -2,6 +2,7 @@ package com.example.orderservice.presentation;
 
 import com.example.orderservice.application.service.OrderService;
 import com.example.orderservice.infrastructure.kafka.KafkaProducer;
+import com.example.orderservice.infrastructure.kafka.OrderProducer;
 import com.example.orderservice.presentation.dto.request.OrderRequest;
 import com.example.orderservice.presentation.dto.response.OrderResponse;
 import java.util.List;
@@ -22,6 +23,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final KafkaProducer kafkaProducer;
+    private final OrderProducer orderProducer;
 
     @PostMapping("/{userId}/orders")
     public ResponseEntity<?> createOrder(
@@ -31,6 +33,7 @@ public class OrderController {
         OrderResponse orderResponse = orderService.createOrder(userId, orderRequest);
 
         kafkaProducer.send("example-catalog-topic", orderRequest);
+        orderProducer.send("orders", orderResponse, userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse);
     }
