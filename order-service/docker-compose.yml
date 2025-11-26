@@ -15,6 +15,3 @@ services:
       - orders-data:/var/lib/mysql
     networks:
       - ecommerce
-
-volumes:
-  orders-data:

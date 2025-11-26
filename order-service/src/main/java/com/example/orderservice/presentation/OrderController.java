@@ -32,7 +32,10 @@ public class OrderController {
     ) {
         OrderResponse orderResponse = orderService.createOrder(userId, orderRequest);
 
+        // 재고 차감 이벤트 발행
         kafkaProducer.send("example-catalog-topic", orderRequest);
+
+        // 서비스 스케일 아웃 시 데이터 정합성
         orderProducer.send("orders", orderResponse, userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse);

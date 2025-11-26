@@ -2,12 +2,13 @@ package com.example.orderservice.application.service.impl;
 
 import com.example.orderservice.application.service.OrderService;
 import com.example.orderservice.domain.entity.OrderEntity;
+import com.example.orderservice.infrastructure.kafka.KafkaProducer;
+import com.example.orderservice.infrastructure.kafka.OrderProducer;
 import com.example.orderservice.infrastructure.repository.OrderJpaRepository;
 import com.example.orderservice.presentation.dto.OrderDto;
 import com.example.orderservice.presentation.dto.request.OrderRequest;
 import com.example.orderservice.presentation.dto.response.OrderResponse;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderJpaRepository orderJpaRepository;
+    private final KafkaProducer kafkaProducer;
+    private final OrderProducer orderProducer;
 
     @Override
     public OrderResponse createOrder(String userId, OrderRequest orderRequest) {
